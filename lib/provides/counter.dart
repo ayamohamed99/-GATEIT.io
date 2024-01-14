@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:just_audio/just_audio.dart';
 
 class CounterProvider with ChangeNotifier {
@@ -48,18 +49,21 @@ class CounterProvider with ChangeNotifier {
   Duration duration = Duration.zero;
 
   void duraction() {
-    // player.positionStream.listen((event) {
-    //   if (event != null) {
-    //     Duration temp = event as Duration;
-    //     duration = temp;
-    //     notifyListeners();
-    //     print('duraction ${formatTime(duration)}');
-
-    //   }
-    // });
-    player.bufferedPositionStream.listen((bufferedPosition) {
-      print('${bufferedPosition}');
+    player.positionStream.listen((event) {
+      if (event != null) {
+        parseDuration(event.toString());
+        // Duration temp = event as Duration;
+        // duration = temp;
+        // notifyListeners();
+        // print('duraction ${event})}');
+        // if (dMaekerts
+        //     .any((element) => element == event.inSeconds)) {
+        //   incrementCounter();
+        //   // return;
+        // }
+      }
     });
+
 // player.durationStream.listen((totalDuration) {
 //   final oldState = progressNotifier.value;
 //   progressNotifier.value = ProgressBarState(
@@ -84,7 +88,8 @@ class CounterProvider with ChangeNotifier {
     // await player.setClip(start: dMaekerts[0], end: dMaekerts[3]);
 
     await player.play();
-    duraction();
+
+    // duraction();
   }
 
   void stop() async {
